@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+#include "resource_retriever_service_plugin/resource_retriever_service_plugin.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -19,7 +20,6 @@
 #include "gtest/gtest.h"
 
 #include <rclcpp/executors/single_threaded_executor.hpp>
-#include "resource_retriever_service_plugin/resource_retriever_service_plugin.hpp"
 
 namespace resource_retriever_service_plugin
 {
@@ -111,6 +111,7 @@ class RosServiceResourceRetrieverTest : public ::testing::Test {
       executor_thread_->join();
 
       retriever_.reset();
+      service_.reset();
       server_node_.reset();
       client_node_.reset();
       executor_thread_.reset();
