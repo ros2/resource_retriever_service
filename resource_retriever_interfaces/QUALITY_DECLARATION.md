@@ -1,41 +1,39 @@
-This document is a declaration of software quality for the `resource_retriever_service` package, based on the guidelines in [REP-2004](https://github.com/ros-infrastructure/rep/blob/master/rep-2004.rst).
+This document is a declaration of software quality for the `resource_retriever_interfaces` package, based on the guidelines in [REP-2004](https://github.com/ros-infrastructure/rep/blob/master/rep-2004.rst).
 
-# `resource_retriever_service` Quality Declaration
+# `resource_retriever_interfaces` Quality Declaration
 
-The package `resource_retriever_service` claims to be in the **Quality Level 3** category.
+The package `resource_retriever_interfaces` claims to be in the **Quality Level 3** category.
 
 Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Quality Categories in REP-2004](https://reps.openrobotics.org/rep-2004/) of the ROS2 developer guide.
 
 ## Version Policy [1]
 
 ### Version Scheme [1.i]
-`resource_retriever_service` uses `semver` according to the recommendation for ROS Core packages in the [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#versioning)
+`resource_retriever_interfaces` uses `semver` according to the recommendation for ROS Core packages in the [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#versioning)
 
 ### Version Stability [1.ii]
 
-`resource_retriever_service` is at a stable version, i.e. `>= 1.0.0`.
+`resource_retriever_interfaces` is at a stable version, i.e. `>= 1.0.0`.
 The current version can be found in its [package.xml](package.xml), and its change history can be found in its [CHANGELOG](CHANGELOG.rst).
 
 ### Public API Declaration [1.iii]
-All symbols in the installed headers are considered part of the public API.
-
-All installed headers are in the `include` directory of the package, headers in any other folders are not installed and considered private.
+There are generated header files which are installed and therefore part of the public API.
 
 ### API Stability Policy [1.iv]
 
-`resource_retriever_service` will not break public API within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
+`resource_retriever_interfaces` will not break public API within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
 
 ### ABI Stability Policy [1.v]
 
-`resource_retriever_service` contains C code and therefore must be concerned with ABI stability, and will maintain ABI stability within a ROS distribution.
+`resource_retriever_interfaces` contains generated C code and therefore must be concerned with ABI stability, and will maintain ABI stability within a ROS distribution.
 
 ### ABI and ABI Stability Within a Released ROS Distribution [1.vi]
 
-`resource_retriever_service` will not break API nor ABI within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
+`resource_retriever_interfaces` will not break API nor ABI within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
 
 ## Change Control Process [2]
 
-`resource_retriever_service` follows the recommended guidelines for ROS Core packages in the [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#change-control-process).
+`resource_retriever_interfaces` follows the recommended guidelines for ROS Core packages in the [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#change-control-process).
 
 ### Change Requests [2.i]
 All changes will occur through a pull request, check [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#change-control-process) for additional information.
@@ -64,27 +62,27 @@ All pull requests must resolve related documentation changes before merging.
 
 ### Feature Documentation [3.i]
 
-`resource_retriever_service` has its features documented inside the header files of the relevant APIs.
+`resource_retriever_interfaces` has its features documented inside the header files of the relevant APIs.
 
 ### Public API Documentation [3.ii]
 
-`resource_retriever_service` has documentation of its public API within the header files of the relevant APIs.
+`resource_retriever_interfaces` has documentation of its public API within the header files of the relevant APIs.
 
 ### License [3.iii]
 
-The license for `resource_retriever_service` is Apache 2.0, and a summary is in each source file, the type is declared in the [`package.xml`](./package.xml) manifest file, and a full copy of the license is in the [`LICENSE`](LICENSE) file.
+The license for `resource_retriever_interfaces` is Apache 2.0, and a summary is in each source file, the type is declared in the [`package.xml`](./package.xml) manifest file, and a full copy of the license is in the [`LICENSE`](LICENSE) file.
 
-There is an automated test which runs a linter that ensures each file has a license statement. [Here](http://build.ros2.org/view/Rpr/job/Rpr__resource_retriever_service__ubuntu_focal_amd64/lastCompletedBuild/testReport/resource_retriever_service/) can be found a list with the latest results of the various linters being run on the package.
+There is an automated test which runs a linter that ensures each file has a license statement. [Here](http://build.ros2.org/view/Rpr/job/Rpr__resource_retriever_interfaces__ubuntu_focal_amd64/lastCompletedBuild/testReport/resource_retriever_interfaces/) can be found a list with the latest results of the various linters being run on the package.
 
 ### Copyright Statements [3.iv]
 
-The copyright holders each provide a statement of copyright in each source code file in `resource_retriever_service`.
+The copyright holders each provide a statement of copyright in each source code file in `resource_retriever_interfaces`.
 
 ## Testing [4]
 
 ### Feature Testing [4.i]
 
-Each feature in `resource_retriever_service` has corresponding tests which simulate typical usage, and they are located in the [`test`](https://github.com/ros2/resource_retriever_service/tree/main/test) directory.
+Each feature in `resource_retriever_interfaces` has corresponding tests which simulate typical usage, and they are located in the [`test`](https://github.com/ros2/resource_retriever_interfaces/tree/main/test) directory.
 New features are required to have tests before being added.
 Currently nightly test results can be seen here:
 * [linux-aarch64_release](https://ci.ros2.org/view/nightly/job/nightly_linux-aarch64_release/lastBuild/testReport/)
@@ -94,21 +92,17 @@ Currently nightly test results can be seen here:
 
 ### Public API Testing [4.ii]
 
-Each part of the public API has tests, and new additions or changes to the public API require tests before being added.
-The tests aim to cover both typical usage and corner cases, but are quantified by contributing to code coverage.
-
 ### Coverage [4.iii]
 
-`resource_retriever_service` does not currently track code coverage statistics but attempts to ensure there are sufficient tests to provide confidence in the implementations.
+`resource_retriever_interfaces` does not track code coverage statistics but attempts to ensure there are sufficient tests to provide confidence in the implementations.
 
 ### Performance [4.iv]
 
-`resource_retriever_service` follows the recommendations for performance testing of C code in the [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#performance), and opts to do performance analysis on each release rather than each change.
-It is not yet defined if this package requires performance testing and how addresses this topic.
+`resource_retriever_interfaces` does not have any performance tests as its just a set of service definitions.
 
 ### Linters and Static Analysis [4.v]
 
-`resource_retriever_service` uses and passes all the ROS2 standard linters and static analysis tools for a C package as described in the [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#linters-and-static-analysis). Passing implies there are no linter/static errors when testing against CI of supported platforms.
+`resource_retriever_interfaces` uses and passes all the ROS2 standard linters and static analysis tools for a C package as described in the [ROS 2 Developer Guide](https://docs.ros.org/en/rolling/The-ROS2-Project/Contributing/Developer-Guide.html#linters-and-static-analysis). Passing implies there are no linter/static errors when testing against CI of supported platforms.
 
 Currently nightly test results can be seen here:
 * [linux-aarch64_release](https://ci.ros2.org/view/nightly/job/nightly_linux-aarch64_release/lastBuild/testReport/)
@@ -127,20 +121,20 @@ There are several direct dependencies from the subpackages on external packages.
 It has several "buildtool" and "test" dependencies, which do not affect the resulting quality of the package, because they do not contribute to the public library API.
 
 ### Optional Direct Runtime ROS Dependencies [5.ii]
-`resource_retriever_service` has no run-time or build-time dependencies that need to be considered for this declaration.
+`resource_retriever_interfaces` has no run-time or build-time dependencies that need to be considered for this declaration.
 
 ### Direct Runtime non-ROS Dependency [5.iii]
-`resource_retriever_service` has no run-time or build-time dependencies that need to be considered for this declaration.
+`resource_retriever_interfaces` has no run-time or build-time dependencies that need to be considered for this declaration.
 
 ## Platform Support [6]
 
-`resource_retriever_service` supports all of the tier 1 platforms as described in [REP-2000](https://www.ros.org/reps/rep-2000.html#support-tiers), and tests each change against all of them.
+`resource_retriever_interfaces` supports all of the tier 1 platforms as described in [REP-2000](https://www.ros.org/reps/rep-2000.html#support-tiers), and tests each change against all of them.
 
 Currently nightly build status can be seen here:
-* [linux-aarch64_release](https://ci.ros2.org/view/nightly/job/nightly_linux-aarch64_release/lastBuild/resource_retriever_service/)
-* [linux-arm64_release](https://ci.ros2.org/view/nightly/job/nightly_linux_release/lastBuild/resource_retriever_service/)
-* [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/resource_retriever_service/)
-* [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/resource_retriever_service/)
+* [linux-aarch64_release](https://ci.ros2.org/view/nightly/job/nightly_linux-aarch64_release/lastBuild/resource_retriever_interfaces/)
+* [linux-arm64_release](https://ci.ros2.org/view/nightly/job/nightly_linux_release/lastBuild/resource_retriever_interfaces/)
+* [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/resource_retriever_interfaces/)
+* [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/resource_retriever_interfaces/)
 
 ## Vulnerability Disclosure Policy [7.i]
 
@@ -148,7 +142,7 @@ This package conforms to the Vulnerability Disclosure Policy in [REP-2006](https
 
 # Current status Summary
 
-The chart below compares the requirements in the REP-2004 with the current state of the resource_retriever_service package.
+The chart below compares the requirements in the REP-2004 with the current state of the resource_retriever_interfaces package.
 |Number|  Requirement| Current state |
 |--|--|--|
 |1| **Version policy** |---|
