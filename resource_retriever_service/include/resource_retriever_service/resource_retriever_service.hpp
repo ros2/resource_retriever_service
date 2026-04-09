@@ -31,13 +31,14 @@
 #include <rclcpp/node_interfaces/node_services_interface.hpp>
 #include <rclcpp/service.hpp>
 #include <resource_retriever_interfaces/srv/get_resource.hpp>
+#include <resource_retriever_service/resource_retriever_service_visibility_control.h>
 
 namespace resource_retriever_service
 {
 
 /// Implementation of the resource retriever service using an in memory map of
 /// meshes.
-class ResourceRetrieverService
+class RESOURCE_RETRIEVER_SERVICE_PUBLIC ResourceRetrieverService
 {
 public:
   static constexpr std::string_view kDefaultServiceName = "resource_provider";

@@ -47,12 +47,13 @@
 #include <rclcpp/node_interfaces/node_services_interface.hpp>
 #include <resource_retriever/plugins/retriever_plugin.hpp>
 #include <resource_retriever_interfaces/srv/get_resource.hpp>
+#include <resource_retriever_service_plugin/resource_retriever_service_plugin_visibility_control.h>
 
 namespace resource_retriever_service_plugin
 {
 
 /// Plugin for resource_retriever that loads resources from a ROS service interface.
-class RosServiceResourceRetriever : public resource_retriever::plugins::RetrieverPlugin
+class RESOURCE_RETRIEVER_SERVICE_PLUGIN_PUBLIC RosServiceResourceRetriever : public resource_retriever::plugins::RetrieverPlugin
 {
   static constexpr std::string_view service_uri_prefix = "service://";
   static constexpr std::string_view service_uri_delimiter = ":";

@@ -14,6 +14,7 @@ find_package(rclcpp REQUIRED)
 add_library(${PROJECT_NAME}
   src/resource_retriever_service_plugin.cpp
 )
+target_compile_definitions(${PROJECT_NAME} PRIVATE RESOURCE_RETRIEVER_SERVICE_PLUGIN_BUILDING_DLL)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
