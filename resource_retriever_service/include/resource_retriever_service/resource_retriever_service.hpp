@@ -15,6 +15,8 @@
 #ifndef RESOURCE_RETRIEVER_SERVICE__RESOURCE_RETRIEVER_SERVICE_HPP_
 #define RESOURCE_RETRIEVER_SERVICE__RESOURCE_RETRIEVER_SERVICE_HPP_
 
+#include <resource_retriever_service/visibility_control.h>
+
 #include <memory>
 #include <optional>
 #include <shared_mutex>
@@ -31,7 +33,6 @@
 #include <rclcpp/node_interfaces/node_services_interface.hpp>
 #include <rclcpp/service.hpp>
 #include <resource_retriever_interfaces/srv/get_resource.hpp>
-#include <resource_retriever_service/resource_retriever_service_visibility_control.h>
 
 namespace resource_retriever_service
 {
