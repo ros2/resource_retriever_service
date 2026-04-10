@@ -15,6 +15,8 @@
 #ifndef RESOURCE_RETRIEVER_SERVICE__RESOURCE_RETRIEVER_SERVICE_HPP_
 #define RESOURCE_RETRIEVER_SERVICE__RESOURCE_RETRIEVER_SERVICE_HPP_
 
+#include <resource_retriever_service/visibility_control.h>
+
 #include <memory>
 #include <optional>
 #include <shared_mutex>
@@ -37,7 +39,7 @@ namespace resource_retriever_service
 
 /// Implementation of the resource retriever service using an in memory map of
 /// meshes.
-class ResourceRetrieverService
+class RESOURCE_RETRIEVER_SERVICE_PUBLIC ResourceRetrieverService
 {
 public:
   static constexpr std::string_view kDefaultServiceName = "resource_provider";

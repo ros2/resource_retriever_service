@@ -30,6 +30,8 @@
 #ifndef RESOURCE_RETRIEVER_SERVICE_PLUGIN__RESOURCE_RETRIEVER_SERVICE_PLUGIN_HPP_
 #define RESOURCE_RETRIEVER_SERVICE_PLUGIN__RESOURCE_RETRIEVER_SERVICE_PLUGIN_HPP_
 
+#include <resource_retriever_service_plugin/visibility_control.h>
+
 #include <mutex>
 #include <string>
 #include <string_view>
@@ -52,7 +54,8 @@ namespace resource_retriever_service_plugin
 {
 
 /// Plugin for resource_retriever that loads resources from a ROS service interface.
-class RosServiceResourceRetriever : public resource_retriever::plugins::RetrieverPlugin
+class RESOURCE_RETRIEVER_SERVICE_PLUGIN_PUBLIC RosServiceResourceRetriever : public
+  resource_retriever::plugins::RetrieverPlugin
 {
   static constexpr std::string_view service_uri_prefix = "service://";
   static constexpr std::string_view service_uri_delimiter = ":";
