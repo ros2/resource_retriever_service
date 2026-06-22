@@ -14,13 +14,17 @@
 
 #include "resource_retriever_service_plugin/resource_retriever_service_plugin.hpp"
 
+#include <memory>
 #include <stdexcept>
 #include <string>
+#include <thread>
+#include <vector>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 #include <rclcpp/executors/single_threaded_executor.hpp>
+#include <rclcpp/node.hpp>
 
 namespace resource_retriever_service_plugin
 {
