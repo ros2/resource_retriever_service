@@ -28,11 +28,12 @@
 #include <rclcpp/executors/single_threaded_executor.hpp>
 #include <rclcpp/logger.hpp>
 #include <rclcpp/node_interfaces/node_base_interface.hpp>
-#include <rclcpp/node_interfaces/node_interfaces.hpp>
 #include <rclcpp/node_interfaces/node_graph_interface.hpp>
+#include <rclcpp/node_interfaces/node_interfaces.hpp>
 #include <rclcpp/node_interfaces/node_logging_interface.hpp>
 #include <rclcpp/node_interfaces/node_services_interface.hpp>
 #include <resource_retriever/plugins/retriever_plugin.hpp>
+#include <resource_retriever/resource.hpp>
 #include <resource_retriever_interfaces/srv/get_resource.hpp>
 
 namespace resource_retriever_service_plugin

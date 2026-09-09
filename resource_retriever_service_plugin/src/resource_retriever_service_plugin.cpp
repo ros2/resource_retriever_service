@@ -14,7 +14,9 @@
 
 #include "resource_retriever_service_plugin/resource_retriever_service_plugin.hpp"
 
+#include <chrono>
 #include <cinttypes>
+#include <cstddef>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -26,13 +28,17 @@
 #include <rclcpp/client.hpp>
 #include <rclcpp/create_client.hpp>
 #include <rclcpp/executors/single_threaded_executor.hpp>
+#include <rclcpp/future_return_code.hpp>
 #include <rclcpp/logger.hpp>
+#include <rclcpp/logging.hpp>
 #include <rclcpp/node_interfaces/node_base_interface.hpp>
-#include <rclcpp/node_interfaces/node_interfaces.hpp>
 #include <rclcpp/node_interfaces/node_graph_interface.hpp>
+#include <rclcpp/node_interfaces/node_interfaces.hpp>
 #include <rclcpp/node_interfaces/node_logging_interface.hpp>
 #include <rclcpp/node_interfaces/node_services_interface.hpp>
+#include <rclcpp/qos.hpp>
 #include <resource_retriever/plugins/retriever_plugin.hpp>
+#include <resource_retriever/resource.hpp>
 #include <resource_retriever_interfaces/srv/get_resource.hpp>
 
 namespace resource_retriever_service_plugin

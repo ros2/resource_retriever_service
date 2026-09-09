@@ -13,11 +13,17 @@
 // limitations under the License.
 #include "resource_retriever_service/resource_retriever_service.hpp"
 
-#include <stdexcept>
+#include <cstdint>
+#include <memory>
 #include <string>
+#include <thread>
+#include <vector>
 
+#include <rclcpp/client.hpp>
 #include <rclcpp/executors/single_threaded_executor.hpp>
 #include <rclcpp/node.hpp>
+#include <rclcpp/utilities.hpp>
+#include <resource_retriever_interfaces/srv/get_resource.hpp>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
