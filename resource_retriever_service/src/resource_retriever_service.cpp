@@ -14,16 +14,25 @@
 
 #include "resource_retriever_service/resource_retriever_service.hpp"
 
+#include <cstdint>
 #include <memory>
+#include <mutex>
+#include <optional>
 #include <shared_mutex>
+#include <string>
+#include <string_view>
 #include <unordered_map>
+#include <utility>
+#include <vector>
 
-#include <rclcpp/rclcpp.hpp>
-#include <rclcpp/node_interfaces/node_base_interface.hpp>
 #include <rclcpp/create_service.hpp>
+#include <rclcpp/logging.hpp>
+#include <rclcpp/node_interfaces/node_base_interface.hpp>
 #include <rclcpp/node_interfaces/node_interfaces.hpp>
 #include <rclcpp/node_interfaces/node_logging_interface.hpp>
 #include <rclcpp/node_interfaces/node_services_interface.hpp>
+#include <rclcpp/qos.hpp>
+#include <resource_retriever_interfaces/srv/get_resource.hpp>
 
 namespace resource_retriever_service
 {

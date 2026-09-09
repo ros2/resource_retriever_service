@@ -17,6 +17,7 @@
 
 #include <resource_retriever_service/visibility_control.h>
 
+#include <cstdint>
 #include <memory>
 #include <optional>
 #include <shared_mutex>
