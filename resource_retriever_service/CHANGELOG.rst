@@ -2,6 +2,9 @@
 Changelog for package resource_retriever_service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.2 (2026-09-15)
 ------------------
 * Include what you use (`#24 <https://github.com/ros2/resource_retriever_service/issues/24>`_)

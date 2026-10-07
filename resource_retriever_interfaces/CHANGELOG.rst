@@ -2,6 +2,9 @@
 Changelog for package resource_retriever_interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2026-10-07)
+------------------
+
 1.0.2 (2026-09-15)
 ------------------
 * Release and Changelog (`#23 <https://github.com/ros2/resource_retriever_service/issues/23>`_)
