@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake_ros REQUIRED)
 find_package(resource_retriever REQUIRED)
 find_package(resource_retriever_interfaces REQUIRED)
+find_package(rcl_interfaces REQUIRED)
 find_package(rclcpp REQUIRED)
 
 add_library(${PROJECT_NAME}
@@ -24,6 +25,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC
   rclcpp::rclcpp
   resource_retriever::resource_retriever
+  ${rcl_interfaces_TARGETS}
   ${resource_retriever_interfaces_TARGETS}
 )
 
@@ -31,6 +33,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
 ament_export_dependencies(
+  rcl_interfaces
   rclcpp
   resource_retriever
   resource_retriever_interfaces

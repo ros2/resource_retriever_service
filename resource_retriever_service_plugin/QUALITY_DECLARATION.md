@@ -121,6 +121,7 @@ Currently nightly test results can be seen here:
 ### Direct Runtime ROS Dependencies [5.i]
 There are several direct dependencies from the subpackages on external packages. They are listed below.
 
+ * rcl_interfaces [Level 1 Quality]
  * rclcpp [Level 2 Quality]
  * resource_retriever [Level unknown]
 

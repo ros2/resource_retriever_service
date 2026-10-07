@@ -17,6 +17,7 @@
 #include <chrono>
 #include <cinttypes>
 #include <cstddef>
+#include <cstdint>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -24,9 +25,12 @@
 #include <unordered_map>
 #include <utility>
 
+#include <rcl_interfaces/msg/integer_range.hpp>
+#include <rcl_interfaces/msg/parameter_descriptor.hpp>
 #include <rclcpp/callback_group.hpp>
 #include <rclcpp/client.hpp>
 #include <rclcpp/create_client.hpp>
+#include <rclcpp/exceptions/exceptions.hpp>
 #include <rclcpp/executors/single_threaded_executor.hpp>
 #include <rclcpp/future_return_code.hpp>
 #include <rclcpp/logger.hpp>
@@ -35,7 +39,10 @@
 #include <rclcpp/node_interfaces/node_graph_interface.hpp>
 #include <rclcpp/node_interfaces/node_interfaces.hpp>
 #include <rclcpp/node_interfaces/node_logging_interface.hpp>
+#include <rclcpp/node_interfaces/node_parameters_interface.hpp>
 #include <rclcpp/node_interfaces/node_services_interface.hpp>
+#include <rclcpp/parameter.hpp>
+#include <rclcpp/parameter_value.hpp>
 #include <rclcpp/qos.hpp>
 #include <resource_retriever/plugins/retriever_plugin.hpp>
 #include <resource_retriever/resource.hpp>
@@ -62,6 +69,43 @@ RosServiceResourceRetriever::RosServiceResourceRetriever(
   executor_.add_callback_group(
     callback_group_,
     ros_node_.get<rclcpp::node_interfaces::NodeBaseInterface>());
+
+  // Declare the service timeout parameter, unless it already exists because another retriever
+  // was created with the same node or because the node declared it itself.
+  auto params_interface =
+    ros_node_.get<rclcpp::node_interfaces::NodeParametersInterface>();
+  const std::string param_name(service_timeout_param_name);
+  if (!params_interface->has_parameter(param_name)) {
+    // The valid range is part of the descriptor, so rclcpp keeps enforcing it for as long as
+    // the parameter exists, independently of the lifetime of this retriever.
+    rcl_interfaces::msg::IntegerRange range;
+    range.from_value = 1;
+    range.to_value = max_service_timeout.count();
+    range.step = 1;
+    rcl_interfaces::msg::ParameterDescriptor descriptor;
+    descriptor.description =
+      "Maximum wait time in milliseconds for resource retriever service calls.";
+    descriptor.integer_range.push_back(range);
+
+    const rclcpp::ParameterValue default_value(
+      static_cast<int64_t>(default_service_timeout.count()));
+    auto declare_ignoring_override = [&](const char * reason) {
+        RCLCPP_WARN(
+          this->logger_,
+          "Invalid initial value for parameter '%s' (%s), using default %" PRId64 " ms.",
+          param_name.c_str(),
+          reason,
+          static_cast<int64_t>(default_service_timeout.count()));
+        params_interface->declare_parameter(param_name, default_value, descriptor, true);
+      };
+    try {
+      params_interface->declare_parameter(param_name, default_value, descriptor);
+    } catch (const rclcpp::exceptions::InvalidParameterValueException & ex) {
+      declare_ignoring_override(ex.what());
+    } catch (const rclcpp::exceptions::InvalidParameterTypeException & ex) {
+      declare_ignoring_override(ex.what());
+    }
+  }
 }
 
 std::string RosServiceResourceRetriever::name()
@@ -152,10 +196,7 @@ RosServiceResourceRetriever::get_shared(const std::string & url)
   req->etag = etag;
   auto result = client->async_send_request(req);
 
-  using namespace std::chrono_literals;
-  auto maximum_wait_time = 3s;
-
-  if (executor_.spin_until_future_complete(result, maximum_wait_time) !=
+  if (executor_.spin_until_future_complete(result, getServiceTimeout()) !=
     rclcpp::FutureReturnCode::SUCCESS)
   {
     RCLCPP_ERROR(this->logger_, "Timeout: Not able to call the service %s", service_name.data());
@@ -244,6 +285,33 @@ RosServiceResourceRetriever::getServiceClient(const std::string & service_name)
   }
 
   return client_ptr;
+}
+
+std::chrono::milliseconds RosServiceResourceRetriever::getServiceTimeout()
+{
+  // Read the parameter on every call instead of caching it, so that runtime changes apply to
+  // all retrievers sharing the node and the timeout can never disagree with the parameter.
+  rclcpp::Parameter timeout_param;
+  const bool is_set =
+    ros_node_.get<rclcpp::node_interfaces::NodeParametersInterface>()->get_parameter(
+    std::string(service_timeout_param_name), timeout_param);
+  if (is_set &&
+    timeout_param.get_type() == rclcpp::ParameterType::PARAMETER_INTEGER &&
+    timeout_param.as_int() > 0 &&
+    timeout_param.as_int() <= max_service_timeout.count())
+  {
+    return std::chrono::milliseconds(timeout_param.as_int());
+  }
+
+  // Only reachable when the node declared the parameter itself, without the range enforced
+  // by the descriptor used in the constructor.
+  RCLCPP_WARN_ONCE(
+    this->logger_,
+    "Parameter '%s' is not an integer in [1, %" PRId64 "], using default %" PRId64 " ms.",
+    service_timeout_param_name.data(),
+    static_cast<int64_t>(max_service_timeout.count()),
+    static_cast<int64_t>(default_service_timeout.count()));
+  return default_service_timeout;
 }
 
 }  // namespace resource_retriever_service_plugin
