@@ -2,6 +2,11 @@
 Changelog for package resource_retriever_service_plugin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2026-10-07)
+------------------
+* Allow overriding service timeout via resource_retriever_service_timeout_ms ROS2 param (`#26 <https://github.com/ros2/resource_retriever_service/issues/26>`_)
+* Contributors: Manuel Schweiger
+
 1.0.2 (2026-09-15)
 ------------------
 * Include what you use (`#24 <https://github.com/ros2/resource_retriever_service/issues/24>`_)
